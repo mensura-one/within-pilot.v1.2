@@ -174,7 +174,6 @@ export default function Home() {
       units_total,
       expires_at: expiresIso,
       // store payment methods as a JSON-ish array; adjust schema if you want strict typing
-      payments: form.payments,
     });
 
     if (error) {
