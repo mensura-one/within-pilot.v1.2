@@ -132,14 +132,25 @@ useEffect(() => {
   }
 };
 
-  useEffect(() => {
-    load();
-    const ch = supabase
-      .channel('signals-live')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'signals' }, load)
-      .subscribe();
-    return () => supabase.removeChannel(ch);
-  }, []);
+useEffect(() => {
+  // Wrap async load so useEffect doesn’t return a promise
+  (async () => {
+    await load();
+  })();
+
+  const ch = supabase
+    .channel('signals-live')
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'signals' },
+      () => { load(); } // wrap async call
+    )
+    .subscribe();
+
+  return () => {
+    supabase.removeChannel(ch);
+  };
+}, []);
 
   // --- Posting a new signal ---
   const postSignal = async (e: React.FormEvent) => {
