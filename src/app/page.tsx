@@ -110,7 +110,7 @@ useEffect(() => {
 }, [paymentPrefs]);
 
   // --- Derived values ---
-  const store = CATALOG[form.storeKey];
+  const store = CATALOG[form.storeKey as keyof typeof CATALOG];
   const item = store.items.find(i => i.key === form.itemKey)!;
   const unitsAuto = useMemo(() => largestPrimeFactor(item.total), [item.total]);
   const unitSize = useMemo(() => item.total / unitsAuto, [item.total, unitsAuto]);
