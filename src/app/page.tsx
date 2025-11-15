@@ -70,6 +70,7 @@ const [form, setForm] = useState({
   leaveInMin: 0,
   windowHours: 2,
   units: 6,
+  payments: [] as string[],
 }); // <- closes the object and the useState. Nothing after this line.
 
 const togglePref = (key: string) => {
