@@ -1,3 +1,4 @@
 things that I want to include in next update:
 
 -it looks like at the operator level, when I mark payment methods, it doesn't stay marked when I reset my instance
+- color pallette

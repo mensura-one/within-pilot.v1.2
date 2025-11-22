@@ -244,7 +244,7 @@ export default function Home() {
     now.isBefore(dayjs(s.expires_at))
   );
 
-  /** ----- Render ----- */
+    // --- JSX layout ---
   return (
     <main
       style={{
@@ -259,15 +259,33 @@ export default function Home() {
     >
       {/* App header */}
       <h1 style={{ marginBottom: 4 }}>within • Shared Runs Pilot</h1>
+
       <div
         style={{
           opacity: 0.6,
-          marginBottom: 12,
+          marginBottom: 8,
           fontSize: 13,
           textAlign: 'left',
         }}
       >
         No logins. No stored personal data. Trust.
+      </div>
+
+      {/* Pilot feedback banner */}
+      <div
+        style={{
+          background: '#F5D76E',
+          color: '#2C2C2C',
+          padding: '10px 14px',
+          borderRadius: 8,
+          marginBottom: 16,
+          fontSize: 14,
+          lineHeight: 1.4,
+        }}
+      >
+        <strong>Pilot Feedback (important)</strong>
+        <br />
+        Please send any feedback directly by text during this phase.
       </div>
 
       {/* Role toggle */}
@@ -420,7 +438,7 @@ export default function Home() {
             <label>
               Payment methods
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                {['Venmo', 'Cash App', 'Zelle', 'Cash'].map((method) => (
+                {['Venmo', 'Cash App', 'Zelle'].map((method) => (
                   <label key={method} style={{ fontSize: 14 }}>
                     <input
                       type="checkbox"
@@ -440,7 +458,13 @@ export default function Home() {
                 ))}
               </div>
             </label>
+            <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
+              Note: on some store runs I receive ~2% card cashback. No extra fee is added for you;
+              this helps keep the pilot operational.
+            </div>
 
+
+        
             <button type="submit">Go (post shared run)</button>
 
             {/* Optional: show computed times for operator */}
@@ -514,40 +538,9 @@ export default function Home() {
                       : 'Claim 1 unit'}
                   </button>
 
-                  {/* feedback */}
-                  <div style={{ marginTop: 12 }}>
-                    <div style={{ marginBottom: 6 }}>Feedback</div>
-
-                    <button
-                      disabled={!!submitting[s.id]}
-                      onClick={() => submitFeedback(s.id, 'ok')}
-                    >
-                      {submitting[s.id] ? 'Saving…' : 'OK'}
-                    </button>
-
-                    <button
-                      style={{ marginLeft: 8 }}
-                      disabled={!!submitting[s.id]}
-                      onClick={() => submitFeedback(s.id, 'not_ok')}
-                    >
-                      {submitting[s.id] ? 'Saving…' : 'Not OK'}
-                    </button>
-
-                    <textarea
-                      placeholder="How could this be better? (optional)"
-                      ref={(el) => {
-                        noteRefs.current[s.id] = el;
-                      }}
-                      rows={2}
-                      style={{
-                        width: '100%',
-                        marginTop: 8,
-                        background: '#2e2e2e',
-                        color: 'white',
-                        resize: 'vertical',
-                      }}
-                      onKeyDown={(e) => e.stopPropagation()}
-                    />
+              {/* Feedback routed outside app for pilot */}
+              <div style={{ marginTop: 12, fontSize: 12, opacity: 0.7 }}>
+                Please send any feedback directly by text during this phase.
                   </div>
                 </Card>
               </li>
